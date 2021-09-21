@@ -27,8 +27,8 @@ jobs:
     - name: Build manylinux Python wheels
       uses: './'
       with:
-        python-install: "python${{ matrix.python-version }}"
-        python-targets: ${{ matrix.pep-425-tag }}
+        python-install: ${{ matrix.pep-425-tag }}
+        python-targets: "python${{ matrix.python-version }}"
         pre-build-command: 'echo Hello world! Testing pre-build command'
         package-path: 'test'
     - uses: actions/upload-artifact@v2
