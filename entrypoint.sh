@@ -29,7 +29,7 @@ curl https://sh.rustup.rs -sSf | sh -s -- -y || { echo "Install Rust failed."; e
 
 # Install poetry
 curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/install-poetry.py | "/opt/python/${PY_PEP_425}/bin/python" - || { echo "Install poetry failed."; exit 1; }
-PY_INSTALL}
+
 # Reload path
 source $HOME/.cargo/env || { echo "Reload path Rust failed."; exit 1; }
 
