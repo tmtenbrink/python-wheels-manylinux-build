@@ -34,4 +34,12 @@ jobs:
     - uses: actions/upload-artifact@v2
       with:
         name: my-artifact
-        path: test/*-manylinux2014_x86_64.whl
+        path: test/dist/rustfrc-1.0.1-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
+    - name: Test ls
+      run: |
+        ls
+    - name: Test ls
+      run: |
+        cd test
+        ls
+      working-directory: $GITHUB_WORKSPACE
