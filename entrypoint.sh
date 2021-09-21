@@ -31,8 +31,8 @@ curl https://sh.rustup.rs -sSf | sh -s -- -y || { echo "Install Rust failed."; e
 curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/install-poetry.py | "/opt/python/${PY_INSTALL}/bin/python" - || { echo "Install poetry failed."; exit 1; }
 
 # Reload path
-export PATH="$HOME/.local/bin:$PATH" || { echo "Reload path  poetry failed."; exit 1; }
 source $HOME/.cargo/env || { echo "Reload path Rust failed."; exit 1; }
+echo "$HOME/.local/bin" >> $GITHUB_PATH || { echo "Reload path Rust failed."; exit 1; }
 
 # Compile wheels
 poetry run maturin develop --release -i ${PY_VERSIONS} || { echo "Building wheels failed."; exit 1; }
