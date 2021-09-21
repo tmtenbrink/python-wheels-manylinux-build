@@ -3,14 +3,14 @@ name: 'Python wheels manylinux build'
 author: 'Ralf Gabriels'
 description: 'Build manylinux wheels for a Python package'
 inputs:
-  python-install:
+  py-version:
+    description: 'python version to target (e.g. 3.9)'
+    required: true
+    default: '3.9'
+  py-pep-425:
     description: 'Python version used to install tools (e.g. cp39-cp39)'
     required: true
     default: 'cp39-cp39'
-  python-targets:
-    description: 'python versions to target, space-separated (e.g. python3.9 python3.8'
-    required: true
-    default: 'python3.9 python3.8 python3.7'
   system-packages:
     description: 'yum packages to install, space-separated'
     required: false
