@@ -32,7 +32,7 @@ curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/install-
 
 # Reload path
 source $HOME/.cargo/env || { echo "Reload path Rust failed."; exit 1; }
-echo "$HOME/.local/bin" >> $GITHUB_PATH || { echo "Reload path Rust failed."; exit 1; }
+echo "$HOME/.local/bin" >> $GITHUB_PATH || { echo "Reload path Poetry failed."; exit 1; }
 
 # Compile wheels
 poetry run maturin develop --release -i ${PY_VERSIONS} || { echo "Building wheels failed."; exit 1; }
