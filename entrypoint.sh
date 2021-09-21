@@ -2,8 +2,8 @@
 set -e -x
 
 # CLI arguments
-PY_INSTALL=$1
-PY_VERSIONS=$2
+PY_PEP_425=$1
+PY_VERSION=$2
 SYSTEM_PACKAGES=$3
 PRE_BUILD_COMMAND=$4
 PACKAGE_PATH=$5
@@ -25,11 +25,11 @@ fi
 # Install Rust
 curl https://sh.rustup.rs -sSf | sh -s -- -y || { echo "Install Rust failed."; exit 1; }
 
-/opt/python/"${PY_INSTALL}"/bin/pip install --no-cache-dir virtualenv || { echo "Installing virtualenv failed."; exit 1; }
+/opt/python/"${PY_PEP_425}"/bin/pip install --no-cache-dir virtualenv || { echo "Installing virtualenv failed."; exit 1; }
 
 # Install poetry
-curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/install-poetry.py | "/opt/python/${PY_INSTALL}/bin/python" - || { echo "Install poetry failed."; exit 1; }
-
+curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/install-poetry.py | "/opt/python/${PY_PEP_425/bin/python" - || { echo "Install poetry failed."; exit 1; }
+PY_INSTALL}
 # Reload path
 source $HOME/.cargo/env || { echo "Reload path Rust failed."; exit 1; }
 
@@ -37,7 +37,7 @@ source $HOME/.cargo/env || { echo "Reload path Rust failed."; exit 1; }
 $HOME/.local/bin/poetry update || { echo "Install dependencies failed."; exit 1; }
 
 # Compile wheels
-$HOME/.local/bin/poetry run maturin build --release -i ${PY_VERSIONS} --compatibility ${COMP} --out ./dist || { echo "Building wheels failed."; exit 1; }
+$HOME/.local/bin/poetry run maturin build --release -i python${PY_VERSION}" --compatibility ${COMP} --out ./dist || { echo "Building wheels failed."; exit 1; }
 
 echo "Succesfully built wheels:"
 find . -type f -iname "*-manylinux*.whl"
