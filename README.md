@@ -1,11 +1,5 @@
 # Python wheels manylinux build - GitHub Action
 
-![GitHub release](https://flat.badgen.net/github/release/RalfG/python-wheels-manylinux-build)
-![License](https://flat.badgen.net/github/license/RalfG/python-wheels-manylinux-build)
-![Open issues](https://flat.badgen.net/github/open-issues/RalfG/python-wheels-manylinux-build)
-![Merged PRs](https://flat.badgen.net/github/merged-prs/RalfG/python-wheels-manylinux-build)
-![GitHub Stars](https://flat.badgen.net/github/stars/RalfG/python-wheels-manylinux-build)
-![GitHub Forks](https://flat.badgen.net/github/forks/RalfG/python-wheels-manylinux-build)
 
 Build manylinux wheels for a (Cython) Python package.
 

@@ -14,31 +14,33 @@ export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/usr/local/lib
 
 cd /github/workspace/"${PACKAGE_PATH}"
 
-if [ ! -z "$SYSTEM_PACKAGES" ]; then
-    yum install -y ${SYSTEM_PACKAGES}  || { echo "Installing yum package(s) failed."; exit 1; }
+if [ -n "$SYSTEM_PACKAGES" ]; then
+    yum install -y "${SYSTEM_PACKAGES}"  || { echo "Installing yum package(s) failed."; exit 1; }
 fi
 
-if [ ! -z "$PRE_BUILD_COMMAND" ]; then
+if [ -n "$PRE_BUILD_COMMAND" ]; then
     $PRE_BUILD_COMMAND || { echo "Pre-build command failed."; exit 1; }
 fi
 
 # Install Rust
 curl https://sh.rustup.rs -sSf | sh -s -- -y || { echo "Install Rust failed."; exit 1; }
 
-/opt/python/${PY_PEP_425}/bin/pip install --no-cache-dir virtualenv || { echo "Installing virtualenv failed."; exit 1; }
+/opt/python/"${PY_PEP_425}"/bin/pip install --no-cache-dir virtualenv || { echo "Installing virtualenv failed."; exit 1; }
 
 # Install poetry
 curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/install-poetry.py | "/opt/python/${PY_PEP_425}/bin/python" - || { echo "Install poetry failed."; exit 1; }
 
 # Reload path
-source $HOME/.cargo/env || { echo "Reload path Rust failed."; exit 1; }
+source "$HOME"/.cargo/env || { echo "Reload path Rust failed."; exit 1; }
 
 # Install dependencies
-$HOME/.local/bin/poetry update || { echo "Install dependencies failed."; exit 1; }
+"$HOME"/.local/bin/poetry update || { echo "Install dependencies failed."; exit 1; }
 
 # Compile wheels
-$HOME/.local/bin/poetry run maturin build --release -i ${PY_VERSION} --compatibility ${COMP} --out ./dist || { echo "Building wheels failed."; exit 1; }
+"$HOME"/.local/bin/poetry run maturin build --release -i "${PY_VERSION}" --compatibility "${COMP}" --out ./toaudit || { echo "Building wheels failed."; exit 1; }
+
+find . -type f -iname "*-linux*.whl" -exec sh -c 'for n; do auditwheel repair "$n" -w /dist || exit 1; done' sh {} +
 
 echo "Succesfully built wheels:"
-find . -type f -iname "*-manylinux*.whl"
+find ./dist -type f -iname "*-manylinux*.whl"
 
