@@ -23,6 +23,9 @@ inputs:
     description: 'path to python package to build, relative to repository root'
     required: false
     default: ''
+outputs:
+  wheels:
+    description: 'Compiled wheel files'
 runs:
   using: 'docker'
   image: 'Dockerfile'
