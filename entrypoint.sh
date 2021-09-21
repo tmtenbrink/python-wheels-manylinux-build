@@ -33,6 +33,9 @@ curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/install-
 # Reload path
 source $HOME/.cargo/env || { echo "Reload path Rust failed."; exit 1; }
 
+# Install dependencies
+$HOME/.local/bin/poetry update || { echo "Install dependencies failed."; exit 1; }
+
 # Compile wheels
 $HOME/.local/bin/poetry run maturin develop --release -i ${PY_VERSIONS} || { echo "Building wheels failed."; exit 1; }
 
