@@ -39,7 +39,7 @@ source "$HOME"/.cargo/env || { echo "Reload path Rust failed."; exit 1; }
 # Compile wheels
 "$HOME"/.local/bin/poetry run maturin build --release -i "${PY_VERSION}" --compatibility "${COMP}" --out ./toaudit || { echo "Building wheels failed."; exit 1; }
 
-find . -type f -iname "*-linux*.whl" -exec sh -c 'for n; do auditwheel repair "$n" -w /dist || exit 1; done' sh {} +
+find ./toaudit -type f -iname "*-linux*.whl" -exec sh -c 'for n; do auditwheel repair "$n" -w ./dist || exit 1; done' sh {} +
 
 echo "Succesfully built wheels:"
 find ./dist -type f -iname "*-manylinux*.whl"
