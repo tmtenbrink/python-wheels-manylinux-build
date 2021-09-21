@@ -19,6 +19,7 @@ jobs:
       uses: actions/checkout@v2
       with:
         repository: tmtenbrink/rustfrc
+        path: test
     - name: Setup Python environment
       uses: actions/setup-python@v2
       with:
@@ -29,7 +30,8 @@ jobs:
         python-install: "python${{ matrix.python-version }}"
         python-versions: ${{ matrix.pep-425-tag }}
         pre-build-command: 'echo Hello world! Testing pre-build command'
+        package-path: 'test'
     - uses: actions/upload-artifact@v2
       with:
         name: my-artifact
-        path: 'dist/*-manylinux2014_x86_64.whl'
+        path: 'test/dist/*-manylinux2014_x86_64.whl'
