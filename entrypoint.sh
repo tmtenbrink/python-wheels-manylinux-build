@@ -37,7 +37,7 @@ source $HOME/.cargo/env || { echo "Reload path Rust failed."; exit 1; }
 $HOME/.local/bin/poetry update || { echo "Install dependencies failed."; exit 1; }
 
 # Compile wheels
-$HOME/.local/bin/poetry run maturin develop --release -i ${PY_VERSIONS} || { echo "Building wheels failed."; exit 1; }
+$HOME/.local/bin/poetry run maturin build --release -i ${PY_VERSIONS} || { echo "Building wheels failed."; exit 1; }
 
 # Bundle external shared libraries into the wheels
 # find -exec does not preserve failed exit codes, so use an output file for failures
