@@ -31,8 +31,8 @@ jobs:
     - name: Build manylinux Python wheels
       uses: './'
       with:
-        python-install: ${{ matrix.py-pep-425 }}
-        python-targets: "python${{ matrix.py-version }}"
+        py-version: ${{ matrix.py-pep-425 }}
+        py-pep-425: "python${{ matrix.py-version }}"
         package-path: 'test'
     - uses: actions/upload-artifact@v2
       with:
