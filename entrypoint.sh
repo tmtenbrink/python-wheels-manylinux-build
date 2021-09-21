@@ -45,7 +45,7 @@ source "$HOME"/.cargo/env || { echo "Reload path Rust failed."; exit 1; }
 
 DIST_PATH="${MAINPATH}"/dist
 
-cat -v << "${DIST_PATH}"
+cat -v <<< "${DIST_PATH}"
 
 find ./toaudit -type f -iname "*-linux*.whl" -exec sh -c 'for n; do auditwheel repair "$n" -w "${DIST_PATH}" || exit 1; done' sh {} +
 
