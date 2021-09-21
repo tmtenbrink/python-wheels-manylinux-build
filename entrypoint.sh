@@ -12,9 +12,7 @@ PACKAGE_PATH=$5
 # https://github.com/RalfG/python-wheels-manylinux-build/issues/26
 export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/usr/local/lib
 
-MAIN_PATH=/github/workspace/"${PACKAGE_PATH}"
-
-cd MAIN_PATH
+cd /github/workspace/"${PACKAGE_PATH}"
 
 if [ -n "$SYSTEM_PACKAGES" ]; then
     yum install -y "${SYSTEM_PACKAGES}"  || { echo "Installing yum package(s) failed."; exit 1; }
@@ -41,7 +39,7 @@ source "$HOME"/.cargo/env || { echo "Reload path Rust failed."; exit 1; }
 # Compile wheels
 "$HOME"/.local/bin/poetry run maturin build --release -i "${PY_VERSION}" --compatibility "${COMP}" --out ./toaudit || { echo "Building wheels failed."; exit 1; }
 
-DIST_PATH="${MAIN_PATH}"/dist
+DIST_PATH=/github/workspace/"${PACKAGE_PATH}"/dist
 
 find ./toaudit -type f -iname "*-linux*.whl" -exec sh -c 'for n; do auditwheel repair "$n" -w "${DIST_PATH}" || exit 1; done' sh {} +
 
