@@ -37,7 +37,7 @@ source $HOME/.cargo/env || { echo "Reload path Rust failed."; exit 1; }
 $HOME/.local/bin/poetry update || { echo "Install dependencies failed."; exit 1; }
 
 # Compile wheels
-$HOME/.local/bin/poetry run maturin build --release -i python${PY_VERSION}" --compatibility ${COMP} --out ./dist || { echo "Building wheels failed."; exit 1; }
+$HOME/.local/bin/poetry run maturin build --release -i ${PY_VERSION}" --compatibility ${COMP} --out ./dist || { echo "Building wheels failed."; exit 1; }
 
 echo "Succesfully built wheels:"
 find . -type f -iname "*-manylinux*.whl"
