@@ -30,8 +30,8 @@ runs:
   using: 'docker'
   image: 'Dockerfile'
   args:
-    - ${{ inputs.python-install }}
-    - ${{ inputs.python-targets }}
+    - ${{ inputs.py-version }}
+    - ${{ inputs.py-pep-425 }}
     - ${{ inputs.system-packages }}
     - ${{ inputs.pre-build-command }}
     - ${{ inputs.package-path }}
