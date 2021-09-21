@@ -12,11 +12,7 @@ PACKAGE_PATH=$5
 # https://github.com/RalfG/python-wheels-manylinux-build/issues/26
 export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/usr/local/lib
 
-MAINPATH=/github/workspace/"${PACKAGE_PATH}"
-
-cat -v <<< "${MAINPATH}"
-
-cd "${MAINPATH}"
+cd /github/workspace/"${PACKAGE_PATH}"
 
 if [ -n "$SYSTEM_PACKAGES" ]; then
     yum install -y "${SYSTEM_PACKAGES}"  || { echo "Installing yum package(s) failed."; exit 1; }
@@ -43,15 +39,8 @@ source "$HOME"/.cargo/env || { echo "Reload path Rust failed."; exit 1; }
 # Compile wheels
 "$HOME"/.local/bin/poetry run maturin build --release -i "${PY_VERSION}" --compatibility "${COMP}" --out ./toaudit || { echo "Building wheels failed."; exit 1; }
 
-DIST_PATH="${MAINPATH}"/dist
-
-cat -v <<< "${DIST_PATH}"
-
-find ./toaudit -type f -iname "*-linux*.whl" -exec sh -c 'for n; do auditwheel repair "$n" -w "${DIST_PATH}" || exit 1; done' sh {} +
-
-echo $(ls)
-find . -type f -iname "*-manylinux*.whl"
+find ./toaudit -type f -iname "*linux*.whl" -exec sh -c 'for file do /usr/local/bin/auditwheel repair $file -w ./dist || echo "Failed auditwheel repair"; exit 1; done' sh {} +
 
 echo "Succesfully built wheels:"
-find "${DIST_PATH}" -type f -iname "*-manylinux*.whl"
+find "${DIST_PATH}" -type f -iname "*manylinux*.whl"
 
