@@ -32,7 +32,7 @@ jobs:
       uses: './'
       with:
         py-version: ${{ matrix.py-pep-425 }}
-        py-pep-425: "python${{ matrix.py-version }}"
+        py-pep-425: "python${{ matrix.py-pep-425 }}"
         package-path: 'test'
     - uses: actions/upload-artifact@v2
       with:
