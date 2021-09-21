@@ -12,7 +12,7 @@ PACKAGE_PATH=$5
 # https://github.com/RalfG/python-wheels-manylinux-build/issues/26
 export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/usr/local/lib
 
-MAINPATH=$(/github/workspace/"${PACKAGE_PATH}")
+MAINPATH=/github/workspace/"${PACKAGE_PATH}"
 
 cat -v <<< "${MAINPATH}"
 
