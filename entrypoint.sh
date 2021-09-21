@@ -42,5 +42,5 @@ source "$HOME"/.cargo/env || { echo "Reload path Rust failed."; exit 1; }
 find ./toaudit -type f -iname "*linux*.whl" -exec sh -c 'for file do /usr/local/bin/auditwheel repair $file -w ./dist; done || { echo "Failed auditwheel repair" ; exit 1; }' sh {} + || exit 1
 
 echo "Succesfully built wheels:"
-find "${DIST_PATH}" -type f -iname "*manylinux*.whl"
+find ./dist -type f -iname "*manylinux*.whl"
 
