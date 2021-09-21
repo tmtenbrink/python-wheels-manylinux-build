@@ -7,6 +7,14 @@ jobs:
   test:
     strategy:
       fail-fast: false
+      matrix:
+          include:
+            - py-version: 3.7
+              py-pep-425: 'cp37-cp37m'
+            - py-version: 3.8
+              py-pep-425: 'cp38-cp38'
+            - py-version: 3.9
+              py-pep-425: 'cp39-cp39'
     runs-on: ubuntu-latest
     steps:
     - name: Checkout action
@@ -19,12 +27,12 @@ jobs:
     - name: Setup Python environment
       uses: actions/setup-python@v2
       with:
-        python-version: '3.9'
+        python-version: ${{ matrix.py-version }}
     - name: Build manylinux Python wheels
       uses: './'
       with:
-        python-install: 'cp39-cp39'
-        python-targets: "python3.9 python3.8 python3.7"
+        python-install: ${{ matrix.py-pep-425 }}
+        python-targets: "python${{ matrix.py-version }}"
         package-path: 'test'
     - uses: actions/upload-artifact@v2
       with:
